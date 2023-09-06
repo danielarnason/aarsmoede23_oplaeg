@@ -29,6 +29,9 @@
               <p>☎ 2497 8832</p>
             </div>
           </div>
+          <aside class="notes">
+            Jeg er GEOGRAF, ikke programmør!
+          </aside>
         </section>
         <section>
           <section data-auto-animate="">
@@ -41,17 +44,12 @@
               <li>Jule festivitas</li>
               <li>HotKeys</li>
             </ol>
-          </section>
-          <section data-auto-animate="">
-            <h3>Custom moduler i Slagelse</h3>
-            <ul id="list">
-              <li style="font-size: 64px;">Analytics</li>
-              <li>Metadata</li>
-              <li>TestSite notifiation</li>
-              <li>Tour De GIS</li>
-              <li>Jule festivitas</li>
-              <li>HotKeys</li>
-            </ol>
+            <aside class="notes">
+              Vi tager udgangspunkt i analytics <br>
+              Metadata på temaniveau <br>
+              Jeg ville gerne tale om Tour De GIS, men det er på ingen måde færdigt, men hvis folk vil se det, så kan jeg godt vise det jeg har til dem <br>
+              HotKeys er mest for mig! Jeg er afhængig af tastatur genveje i alt det jeg laver.
+            </aside>
           </section>
           <section>
             <h3>Custom Minimaps</h3>
@@ -60,6 +58,10 @@
               <li><a href="https://www.slagelse.dk/da/service-og-selvbetjening/dagtilbud-og-skole/skole/find-en-skole/">Tabel under kort</a></li>
               <li><a href="https://www.slagelse.dk/da/test/undervisning-og-testomraade/kort-til-flere-faglaerte-site/">Filtrering, zoom ved klik og info udenfor kort</a></li>
             </ul>
+            <aside class="notes">
+              Jeg laver også en masse custom minimaps <br>
+              Tilføjer funktionalitet med Javascript og OpenLayers
+            </aside>
           </section>
         </section>
         <section>
@@ -79,6 +81,9 @@
               <li>Hvem gør de her ting?</li>
               <li>Hvordan sender jeg data til databasen?</li>
             </ol>
+            <aside class="notes">
+              Nødvendigt at stille sig selv de spørgsmål, så man kan begrænse sig selv
+            </aside>
           </section>
         </section>
         <section>
@@ -87,6 +92,11 @@
             <p><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/MiniMap/2.13/MiniMap.Events.html#event:THEME_VISIBILITY_CHANGED" target="_blank">THEME_VISIBILITY_CHANGED</a></p>
             <p><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/MiniMap/2.13/MiniMap.Events.html#event:SEARCH_RESULT_SELECTED" target="_blank">SEARCH_RESULT_SELECTED</a></p>
             <p>BUTTON_CLICKED</p>
+            <aside class="notes">
+              Events i javascript er der, hvor magien sker! <br>
+              En masse forskellige events i MiniMap API'et <br>
+              Ikke alle er dokumenterede!!
+            </aside>
           </section>
           <section>
             <h2>Mapclick listener</h2>
@@ -96,6 +106,10 @@
                 console.log(wkt)
               })
             </code></pre>
+            <aside class="notes">
+              Listeners "lytter" efter events! <br>
+              Når X sker, gør det her!
+            </aside>
           </section>
           <section>
             <h2>Tema listener</h2>
@@ -106,6 +120,10 @@
                 console.log(visible)
               })
             </code></pre>
+            <aside class="notes">
+              Kig i MiniMap docs for, hvilke parametre en event har. <br>
+              Vis i browser konsol, hvis der er tid!
+            </aside>
           </section>
         </section>
         <section>
@@ -124,6 +142,10 @@
                 console.log(response)
               })
             </code></pre>
+            <aside class="notes">
+              Her kan man bare ændre, hvilken command der skal køres og på hvilken datasource <br>
+              Men hvad er en datasource command? 
+            </aside>
           </section>
           <section data-auto-animate>
             <h2>Datasource commands</h2>
@@ -136,6 +158,12 @@
                 </sql>
               </datasource>
             </code></pre>
+            <aside class="notes">
+              En datasource som vi alle kender <br>
+              Men med SQL tags inde i. <br>
+              Indeholder helt almindelig Insert into SQL <br>
+              Values skrevet på en anderledes måde, da de kommer fra execute functionen.
+            </aside>
           </section>
           <section data-auto-animate>
             <h2>Datasource commands</h2>
@@ -145,10 +173,13 @@
                 command: 'insert-theme-interaction'
               })
             </code></pre>
+            <aside class="notes">
+              Sådan ville det se ud hos os!
+            </aside>
           </section>
           <section>
             <h2>Samlet JS listener</h2>
-            <pre id="customCode"><code data-trim data-noescape>
+            <pre id="customCode"><code data-trim data-noescape data-line-numbers="0|2|7-14">
               spm.addListener('THEME_VISIBILITY_CHANGED', (event, theme, visible) => {
                 if (event == 'THEME_VISIBILITY_CHANGED' && visible) {
                   let analyticsDs = spm.getSession().getDatasource('sps_analytics')
@@ -167,6 +198,10 @@
                 }
               })
             </code></pre>
+            <aside class="notes">
+              If sætning tjekker, hvis et tema er visible - dvs. er blevet tændt <br>
+              Ekstra variabler i execute funktionen er alle de variabler, som skal sendes videre til datasource <command>
+            </aside>
           </section>
         </section>
         <section>
