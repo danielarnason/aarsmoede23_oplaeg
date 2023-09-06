@@ -5,14 +5,175 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" type="module" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>🍾Oplæg til Årsmøde 2023</title>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>Slide 1!</section>
-        <section>Slide 2!</section>
+        <section>
+          <h2>Hjemmestrik</h2>
+          <p>Hvordan og hvorfor?</p>
+        </section>
+        <section>
+          <h2>Hvem er jeg?</h2>
+          <div class="info">
+            <div id="person">
+              <p>Daníel Örn Árnason</p>
+              <p>Slagelse kommune</p>
+              <p>Island</p>
+              <p>Geograf</p>
+            </div>
+            <div id="kontaktinfo">
+              <p><a href="mailto:daarn@slagelse.dk">daarn@slagelse.dk</a></p>
+              <p>☎ 2497 8832</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <section data-auto-animate="">
+            <h3>Custom moduler i Slagelse</h3>
+            <ul id="list">
+              <li>Analytics</li>
+              <li>Metadata</li>
+              <li>TestSite notifiation</li>
+              <li>Tour De GIS</li>
+              <li>Jule festivitas</li>
+              <li>HotKeys</li>
+            </ol>
+          </section>
+          <section data-auto-animate="">
+            <h3>Custom moduler i Slagelse</h3>
+            <ul id="list">
+              <li style="font-size: 64px;">Analytics</li>
+              <li>Metadata</li>
+              <li>TestSite notifiation</li>
+              <li>Tour De GIS</li>
+              <li>Jule festivitas</li>
+              <li>HotKeys</li>
+            </ol>
+          </section>
+          <section>
+            <h3>Custom Minimaps</h3>
+            <ul id="list">
+              <li><a href="https://www.slagelse.dk/da/service-og-selvbetjening/bolig-og-byggeri/vand-og-kloak/grundvandsbeskyttelse/">Måleværktøjer</a></li>
+              <li><a href="https://www.slagelse.dk/da/service-og-selvbetjening/dagtilbud-og-skole/skole/find-en-skole/">Tabel under kort</a></li>
+              <li><a href="https://www.slagelse.dk/da/test/undervisning-og-testomraade/kort-til-flere-faglaerte-site/">Filtrering, zoom ved klik og info udenfor kort</a></li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section data-auto-animate>
+            <h2>SpS Analytics</h2>
+            <p>Opsnapper brugeradfærd i platformen og gemmer i databasen</p>
+          </section>
+          <section data-auto-animate>
+            <h2>SpS Analytics</h2>
+            <img src="/dashboard.png" alt="">
+          </section>
+          <section data-auto-animate>
+            <h2>Udfordringer</h2>
+            <ol>
+              <li>Hvilket temaer bliver tændt?</li>
+              <li>Hvilket tools bliver brugt?</li>
+              <li>Hvem gør de her ting?</li>
+              <li>Hvordan sender jeg data til databasen?</li>
+            </ol>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/MiniMap/2.13/MiniMap.Events.html" target="_blank">MiniMap Events</a></h2>
+            <p><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/MiniMap/2.13/MiniMap.Events.html#event:THEME_VISIBILITY_CHANGED" target="_blank">THEME_VISIBILITY_CHANGED</a></p>
+            <p><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/MiniMap/2.13/MiniMap.Events.html#event:SEARCH_RESULT_SELECTED" target="_blank">SEARCH_RESULT_SELECTED</a></p>
+            <p>BUTTON_CLICKED</p>
+          </section>
+          <section>
+            <h2>Mapclick listener</h2>
+            <pre id="customCode"><code data-trim data-noescape>
+              spm.addListener('MAP_CLICKED', (event, wkt) => {
+                console.log(event)
+                console.log(wkt)
+              })
+            </code></pre>
+          </section>
+          <section>
+            <h2>Tema listener</h2>
+            <pre id="customCode"><code data-trim data-noescape>
+              spm.addListener('THEME_VISIBILITY_CHANGED', (event, theme, visible) => {
+                console.log(event)
+                console.log(theme)
+                console.log(visible)
+              })
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Hvordan sender jeg data til databasen?</h2>
+          </section>
+          <section data-auto-animate>
+            <h2>Datasource commands</h2>
+            <p><a href="https://demo43en.spatialsuite.com/docs/spatialsuite/API/SpatialServer/2.7/SpatialServer.Datasource.html#execute">Datasource.execute</a></p>
+          </section>
+          <section data-auto-animate>
+            <h2>Datasource commands</h2>
+            <pre id="customCode"><code data-trim data-noescape>
+              let datasource = spm.getSession().getDatasource('ds_skoler')
+              datasource.execute({command: 'read'}, response => {
+                console.log(response)
+              })
+            </code></pre>
+          </section>
+          <section data-auto-animate>
+            <h2>Datasource commands</h2>
+            <pre id="customCode"><code data-trim data-line-numbers="0-7|2-6">
+              <datasource displayname="sps_analytics" endpoint="ep_sps_analytics" name="sps_analytics">
+                <sql command="insert-theme-interaction">
+                  insert into
+                  sps_analytics.themes_interactions(session_id, event, displayname, themefile_name, datasource_name, site, profile) 
+                  values([string: sessionid], 'THEME_VISIBILITY_CHANGED', [string: displayname], [string: themename], [string: datasourcename], [string: site], [string: profile])
+                </sql>
+              </datasource>
+            </code></pre>
+          </section>
+          <section data-auto-animate>
+            <h2>Datasource commands</h2>
+            <pre id="customCode"><code data-trim data-noescape>
+              let datasource = spm.getSession().getDatasource('sps_analytics')
+              datasource.execute({
+                command: 'insert-theme-interaction'
+              })
+            </code></pre>
+          </section>
+          <section>
+            <h2>Samlet JS listener</h2>
+            <pre id="customCode"><code data-trim data-noescape>
+              spm.addListener('THEME_VISIBILITY_CHANGED', (event, theme, visible) => {
+                if (event == 'THEME_VISIBILITY_CHANGED' && visible) {
+                  let analyticsDs = spm.getSession().getDatasource('sps_analytics')
+
+                  analyticsDs.execute({
+                    command: 'insert-theme-interaction',
+                    sessionid: spm.getSessionId(),
+                    themename: theme.name,
+                    displayname: theme._displayname,
+                    datasourcename: theme._initialConfig.primarydatasource,
+                    site: window.location.host,
+                    profile: spm.getProfile(),
+                    site: window.location.host,
+                    profile: spm.getProfile()
+                  })
+                }
+              })
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h1>Spørgsmål</h1>
+        </section>
       </div>
     </div>
   </body>
-</html>
+  </html>
+  

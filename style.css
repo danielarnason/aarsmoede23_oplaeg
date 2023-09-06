@@ -1,0 +1,32 @@
+#list {
+    list-style: none;
+    text-align: center;
+    margin: 0px auto;
+}
+
+#list > li {
+    margin: 15px;
+    text-align: center;
+}
+
+ol > li {
+    margin: 15px;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+}
+
+.info > div {
+    margin: 0 20px;
+}
+
+pre, 
+code {
+    white-space: pre-wrap;
+}
+
+#customCode {
+    width: auto;
+}
