@@ -12,6 +12,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "fireworks-js": "^2.10.7",
     "reveal.js": "^4.5.0"
   }
 }
