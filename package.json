@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "fireworks-js": "^2.10.7",
+    "flag-icons": "^6.11.0",
     "reveal.js": "^4.5.0"
   }
 }
