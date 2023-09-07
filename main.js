@@ -14,16 +14,18 @@ let deck = new Reveal({
     ]
 })
 
+let fireworksContainer = document.querySelector('.slides')
+let fireworks = new Fireworks(fireworksContainer)
+
 deck.on('slidetransitionend', event => {
     let curSlide = deck.getIndices()
     console.log(curSlide)
 
     if (curSlide.h == 8 && curSlide.v == 0) {
-        let container = document.querySelector('.slides')
-        let fireworks = new Fireworks(container)
         fireworks.start()
+    } else {
+        fireworks.stop(true)
     }
-    
 })
 
 deck.initialize()
