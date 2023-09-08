@@ -187,7 +187,7 @@
           </section>
           <section>
             <h2>Samlet JS listener</h2>
-            <pre id="customCode"><code data-trim data-noescape data-line-numbers="0|2|7-14">
+            <pre id="customCode"><code data-trim data-noescape data-line-numbers="0|1|2|3|5-14|7-14|0">
               spm.addListener('THEME_VISIBILITY_CHANGED', (event, theme, visible) => {
                 if (event == 'THEME_VISIBILITY_CHANGED' && visible) {
                   let analyticsDs = spm.getSession().getDatasource('sps_analytics')
@@ -211,6 +211,17 @@
               Ekstra variabler i execute funktionen er alle de variabler, som skal sendes videre til datasource <command>
             </aside>
           </section>
+        </section>
+        <section>
+          <h2>Opsummering</h2>
+          <ol>
+            <li>Lyt til event med en listener</li>
+            <li>Opsaml info fra event</li>
+            <li>Send data til DB med ds command</li>
+          </ol>
+          <aside class="notes">
+            Den her slide er mest for dem, som kigger på den bagefter.
+          </aside>
         </section>
         <section>
           <section>

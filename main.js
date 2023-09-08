@@ -22,7 +22,7 @@ deck.on('slidetransitionend', event => {
     let curSlide = deck.getIndices()
     console.log(curSlide)
 
-    if (curSlide.h == 8 && curSlide.v == 0) {
+    if (curSlide.h == 9 && curSlide.v == 0) {
         fireworks.start()
     } else {
         fireworks.stop(true)
